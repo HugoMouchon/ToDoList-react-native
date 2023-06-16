@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from "react-native";
+import { Text } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import * as NavigationBar from 'expo-navigation-bar';
+import { s } from "./App.style";
+import { useEffect } from "react";
+
 
 export default function App() {
+
+  useEffect(() => {
+    NavigationBar.setBackgroundColorAsync("grey");
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <SafeAreaProvider>
+        <SafeAreaView style={s.app}>
+          <View style={s.header} >
+            <Text>Header</Text>
+          </View>
+          <View style={s.body} >
+            <Text>Body dazdazzdazdadr</Text>
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
+      <View style={s.footer} >
+        <Text>Footer</Text>
+      </View>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

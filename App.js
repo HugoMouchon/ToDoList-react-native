@@ -4,12 +4,13 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as NavigationBar from 'expo-navigation-bar';
 import { s } from "./App.style";
 import { useEffect } from "react";
+import { Header } from "./components/Header/Header";
 
 
 export default function App() {
 
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync("grey");
+    NavigationBar.setBackgroundColorAsync("#F9F9F9");
   }, []);
 
   return (
@@ -17,7 +18,7 @@ export default function App() {
       <SafeAreaProvider>
         <SafeAreaView style={s.app}>
           <View style={s.header} >
-            <Text>Header</Text>
+            <Header/>
           </View>
           <View style={s.body} >
             <Text>Body dazdazzdazdadr</Text>

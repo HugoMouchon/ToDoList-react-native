@@ -5,9 +5,14 @@ import * as NavigationBar from 'expo-navigation-bar';
 import { s } from "./App.style";
 import { useEffect } from "react";
 import { Header } from "./components/Header/Header";
+import { CardToDo } from "./components/CardToDo/CardToDo";
 
 
 export default function App() {
+
+  const TODO_LIST = [
+    { id: 1, title: "Sortir le chien", isCompleted: true}
+  ]
 
   useEffect(() => {
     NavigationBar.setBackgroundColorAsync("#F9F9F9");
@@ -21,7 +26,7 @@ export default function App() {
             <Header/>
           </View>
           <View style={s.body} >
-            <Text>Body dazdazzdazdadr</Text>
+            <CardToDo todo={TODO_LIST[0]}/>
           </View>
         </SafeAreaView>
       </SafeAreaProvider>

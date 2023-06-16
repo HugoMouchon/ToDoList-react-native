@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/logo_todolist.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFFF"
     },
     "assetBundlePatterns": [
       "**/*"

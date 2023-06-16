@@ -19,17 +19,31 @@ export default function App() {
     { id: 6, title: "Sortir le chien", isCompleted: false },
   ]);
 
+  function updateTodo(todo) {
+    const updateTodo = {
+      ...todo,
+      isCompleted: !todo.isCompleted
+    }
+    const indexToUpdate = todoList.findIndex((todo)=> todo.id === updateTodo.id)
+
+    const updatedTodoList = [...todoList]
+    updatedTodoList[indexToUpdate] = updateTodo
+    setTodoList(updatedTodoList);
+
+    console.log(todo);
+  }
+
   function renderTodoList() {
     return todoList.map((todo) => (
       <View
         style={s.cardItem} key={todo.id}>
-        <CardToDo todo={todo} />
+        <CardToDo onPress={updateTodo} todo={todo} />
       </View>
     ));
   }
 
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync("#F9E28F");
+    NavigationBar.setBackgroundColorAsync("#ACE5F3");
   }, []);
 
   return (

@@ -10,8 +10,8 @@ export const s = StyleSheet.create({
 
     subtitle: {
         fontSize: 20,
-        color: "#61B4E5",
+        color: "#242059",
         textAlign: "center",
-        fontStyle: "italic",
+        fontWeight: "bold",
     },
 })

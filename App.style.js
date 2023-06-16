@@ -4,7 +4,7 @@ export const s = StyleSheet.create({
 
     app: {
         flex: 1,
-        backgroundColor: "#F9E28F",
+        backgroundColor: "#ACE5F3",
         padding: 10,
     },
 
@@ -13,13 +13,13 @@ export const s = StyleSheet.create({
     },
 
     body: {
-        flex: 5,
+        flex: 4,
         paddingTop: 40,
     },
 
     footer: {
         height: 70,
-        backgroundColor: "#F9E28F",
+        backgroundColor: "#ACE5F3",
     },
 
     cardItem: {

@@ -11,7 +11,7 @@ import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
 
 export default function App() {
 
-  const [selectedTabName, setSelectedTabName] = useState("All");
+  const [selectedTabName, setSelectedTabName] = useState("all");
 
   const [todoList, setTodoList] = useState([
     { id: 1, title: "Sortir le chien", isCompleted: true },
@@ -22,13 +22,24 @@ export default function App() {
     { id: 6, title: "Sortir le chien", isCompleted: false },
   ]);
 
+  function getFilteredList() {
+    switch (selectedTabName) {
+      case "all":
+        return todoList
+      case "inProgress":
+        return todoList.filter((todo) => !todo.isCompleted)
+      case "done":
+        return todoList.filter((todo) => todo.isCompleted)
+    }
+  }
+
   function updateTodo(todo) {
     const updateTodo = {
       ...todo,
       isCompleted: !todo.isCompleted
     }
 
-    const indexToUpdate = todoList.findIndex((todo)=> todo.id === updateTodo.id)
+    const indexToUpdate = todoList.findIndex((todo) => todo.id === updateTodo.id)
 
     const updatedTodoList = [...todoList]
     updatedTodoList[indexToUpdate] = updateTodo
@@ -38,7 +49,7 @@ export default function App() {
   }
 
   function renderTodoList() {
-    return todoList.map((todo) => (
+    return getFilteredList().map((todo) => (
       <View
         style={s.cardItem} key={todo.id}>
         <CardToDo onPress={updateTodo} todo={todo} />
@@ -63,9 +74,10 @@ export default function App() {
         </SafeAreaView>
       </SafeAreaProvider>
       <View style={s.footer} >
-        <TabBottomMenu 
-        onPress={setSelectedTabName}
-        selectedTabName={selectedTabName}/>
+        <TabBottomMenu
+          todoList={todoList}
+          onPress={setSelectedTabName}
+          selectedTabName={selectedTabName} />
       </View>
     </>
   );

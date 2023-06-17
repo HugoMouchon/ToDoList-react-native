@@ -1,17 +1,18 @@
-import { View, Text } from "react-native";
+import { View, Alert, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as NavigationBar from 'expo-navigation-bar';
 import { s } from "./App.style";
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header/Header";
 import { CardToDo } from "./components/CardToDo/CardToDo";
-import { ScrollView } from "react-native";
 import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
-import { Alert } from "react-native";
 import { ButtonAdd } from "./components/ButtonAdd/ButtonAdd";
 import Dialog from "react-native-dialog";
 import uuid from "react-native-uuid";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+let isFirstRender = true;
+let isLoadUpdate = false;
 
 export default function App() {
 
@@ -19,6 +20,45 @@ export default function App() {
   const [todoList, setTodoList] = useState([]);
   const [isAddDialogVisible, setIsAddDialogVisible] = useState(false);
   const [inputValue, setInputValue] = useState();
+
+  useEffect(() => {
+    loadTodoList();
+  }, []);
+
+  useEffect(() => {
+    if (isLoadUpdate) {
+      isLoadUpdate = false;
+    } else {
+      if (!isFirstRender) {
+        saveTodoList();
+      } else {
+        isFirstRender = false;
+      }
+    }
+  }, [todoList]);
+
+  async function saveTodoList() {
+    console.log("SAVE");
+    try {
+      await AsyncStorage.setItem("@todolist", JSON.stringify(todoList));
+    } catch (error) {
+      alert("Erreur" + error);
+    }
+  }
+
+  async function loadTodoList() {
+    console.log("LOAD");
+    try {
+      const stringifiedTodoList = await AsyncStorage.getItem("@todolist");
+      if (stringifiedTodoList !== null) {
+        const parsedTodoList = JSON.parse(stringifiedTodoList);
+        isLoadUpdate = true;
+        setTodoList(parsedTodoList);
+      }
+    } catch (error) {
+      alert("Erreur" + error);
+    }
+  }
 
   function getFilteredList() {
     switch (selectedTabName) {
@@ -42,8 +82,6 @@ export default function App() {
     const updatedTodoList = [...todoList]
     updatedTodoList[indexToUpdate] = updateTodo
     setTodoList(updatedTodoList);
-
-    console.log(todo);
   }
 
   function deleteTodo(todoToDelete) {
@@ -89,7 +127,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync("#ACE5F3");
+    NavigationBar.setBackgroundColorAsync("#D4FBF9");
   }, []);
 
   return (
@@ -125,4 +163,4 @@ export default function App() {
     </>
   );
 }
- 
+

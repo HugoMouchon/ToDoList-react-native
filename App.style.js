@@ -4,7 +4,7 @@ export const s = StyleSheet.create({
 
     app: {
         flex: 1,
-        backgroundColor: "#ACE5F3",
+        backgroundColor: "#D4FBF9",
         padding: 10,
     },
 

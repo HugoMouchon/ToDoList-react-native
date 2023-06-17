@@ -4,7 +4,7 @@ export const s = StyleSheet.create({
 
     img: {
         width: 150,
-        height: 100,
+        height: 150,
         alignSelf: "center",
     },
 
@@ -13,5 +13,6 @@ export const s = StyleSheet.create({
         color: "#242059",
         textAlign: "center",
         fontWeight: "bold",
+        
     },
 })

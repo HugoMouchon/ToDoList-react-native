@@ -1,14 +1,13 @@
-import { Image } from "react-native";
+import { Image, Text } from "react-native";
 import { s } from "./Header.style";
-import { Text } from "react-native";
-import headerlogo from "../../assets/logo_todolist.png";
+import headerlogo from "../../assets/logo_todo.png";
 import { View } from "react-native";
 
 export function Header() {
     return (
-        <>
+        <View style={{flex: 1, justifyContent: "center", gap: -30}}>
             <Image style={s.img} source={headerlogo} resizeMode="contain" />
             <Text style={s.subtitle}>To Do List</Text>
-        </>
+        </View>
     );
 }

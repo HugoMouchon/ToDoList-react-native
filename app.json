@@ -7,9 +7,9 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo_todolist.png",
+      "image": "./assets/logo_todo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FFFFFF"
+      "backgroundColor": "#D4FBF9"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,7 +20,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#D4FBF9"
+      },
+      "androidNavigationBar": {
+        "backgroundColor": "#ACE5F3"
       }
     },
     "web": {

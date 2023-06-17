@@ -8,20 +8,17 @@ import { CardToDo } from "./components/CardToDo/CardToDo";
 import { ScrollView } from "react-native";
 import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
 import { Alert } from "react-native";
+import { ButtonAdd } from "./components/ButtonAdd/ButtonAdd";
+import Dialog from "react-native-dialog";
+import uuid from "react-native-uuid";
 
 
 export default function App() {
 
   const [selectedTabName, setSelectedTabName] = useState("all");
-
-  const [todoList, setTodoList] = useState([
-    { id: 1, title: "Sortir le chien", isCompleted: true },
-    { id: 2, title: "Sortir le chien", isCompleted: false },
-    { id: 3, title: "Sortir le chien", isCompleted: true },
-    { id: 4, title: "Sortir le chien", isCompleted: false },
-    { id: 5, title: "Sortir le chien", isCompleted: true },
-    { id: 6, title: "Sortir le chien", isCompleted: false },
-  ]);
+  const [todoList, setTodoList] = useState([]);
+  const [isAddDialogVisible, setIsAddDialogVisible] = useState(false);
+  const [inputValue, setInputValue] = useState();
 
   function getFilteredList() {
     switch (selectedTabName) {
@@ -55,7 +52,7 @@ export default function App() {
         text: "Supprimer",
         style: "destructive",
         onPress: () => {
-         setTodoList(todoList.filter(todo => todo.id !== todoToDelete.id ));
+          setTodoList(todoList.filter(todo => todo.id !== todoToDelete.id));
         }
       },
       {
@@ -77,6 +74,20 @@ export default function App() {
     ));
   }
 
+  function showAddDialog() {
+    setIsAddDialogVisible(true);
+  }
+
+  function addTodo() {
+    const newTodo = {
+      id: uuid.v4(),
+      title: inputValue,
+      isCompleted: false,
+    };
+    setTodoList([...todoList, newTodo]);
+    setIsAddDialogVisible(false);
+  }
+
   useEffect(() => {
     NavigationBar.setBackgroundColorAsync("#ACE5F3");
   }, []);
@@ -91,15 +102,27 @@ export default function App() {
           <View style={s.body}>
             <ScrollView>{renderTodoList()}</ScrollView>
           </View>
+          <ButtonAdd onPress={showAddDialog} />
         </SafeAreaView>
       </SafeAreaProvider>
-      <View style={s.footer} >
-        <TabBottomMenu
-          todoList={todoList}
-          onPress={setSelectedTabName}
-          selectedTabName={selectedTabName} />
-      </View>
+      <TabBottomMenu
+        todoList={todoList}
+        onPress={setSelectedTabName}
+        selectedTabName={selectedTabName}
+      />
+      <Dialog.Container
+        visible={isAddDialogVisible}
+        onBackdropPress={() => setIsAddDialogVisible(false)}>
+        <Dialog.Title>
+          Créer une tâche
+        </Dialog.Title>
+        <Dialog.Description>
+          Choisi un nom pour la nouvelle tâche
+        </Dialog.Description>
+        <Dialog.Input onChangeText={setInputValue} />
+        <Dialog.Button label={"Créer"} onPress={addTodo} />
+      </Dialog.Container>
     </>
   );
 }
-
+ 

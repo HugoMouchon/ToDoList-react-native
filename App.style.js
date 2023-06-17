@@ -17,11 +17,6 @@ export const s = StyleSheet.create({
         paddingTop: 40,
     },
 
-    footer: {
-        height: 70,
-        backgroundColor: "#ACE5F3",
-    },
-
     cardItem: {
         marginBottom: 20,
     },

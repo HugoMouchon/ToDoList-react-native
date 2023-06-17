@@ -3,9 +3,9 @@ import check from "../../assets/check.png"
 import { s } from './CardToDo.style';
 
 
-export function CardToDo({ todo, onPress }) {
+export function CardToDo({ todo, onPress, onLongPress }) {
     return (
-        <TouchableOpacity onPress={() => onPress(todo)} style={s.card}>
+        <TouchableOpacity onLongPress={()=> onLongPress(todo)} onPress={() => onPress(todo)} style={s.card}>
             <Text style={[s.text, todo.isCompleted && { textDecorationLine: "line-through" }]}>
                 {todo.title}
             </Text>

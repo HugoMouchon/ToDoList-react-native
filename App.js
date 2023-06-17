@@ -7,6 +7,7 @@ import { Header } from "./components/Header/Header";
 import { CardToDo } from "./components/CardToDo/CardToDo";
 import { ScrollView } from "react-native";
 import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
+import { Alert } from "react-native";
 
 
 export default function App() {
@@ -48,11 +49,30 @@ export default function App() {
     console.log(todo);
   }
 
+  function deleteTodo(todoToDelete) {
+    Alert.alert("Suppression", "Voulez-vous supprimer cette tâche ?", [
+      {
+        text: "Supprimer",
+        style: "destructive",
+        onPress: () => {
+         setTodoList(todoList.filter(todo => todo.id !== todoToDelete.id ));
+        }
+      },
+      {
+        text: "Annuler",
+        style: 'cancel',
+      }
+    ])
+  }
+
   function renderTodoList() {
     return getFilteredList().map((todo) => (
       <View
         style={s.cardItem} key={todo.id}>
-        <CardToDo onPress={updateTodo} todo={todo} />
+        <CardToDo
+          onLongPress={deleteTodo}
+          onPress={updateTodo}
+          todo={todo} />
       </View>
     ));
   }

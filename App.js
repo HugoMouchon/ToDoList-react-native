@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header/Header";
 import { CardToDo } from "./components/CardToDo/CardToDo";
 import { ScrollView } from "react-native";
+import { TabBottomMenu } from "./components/TabBottomMenu/TabBottomMenu";
 
 
 export default function App() {
+
+  const [selectedTabName, setSelectedTabName] = useState("All");
 
   const [todoList, setTodoList] = useState([
     { id: 1, title: "Sortir le chien", isCompleted: true },
@@ -24,6 +27,7 @@ export default function App() {
       ...todo,
       isCompleted: !todo.isCompleted
     }
+
     const indexToUpdate = todoList.findIndex((todo)=> todo.id === updateTodo.id)
 
     const updatedTodoList = [...todoList]
@@ -59,7 +63,9 @@ export default function App() {
         </SafeAreaView>
       </SafeAreaProvider>
       <View style={s.footer} >
-        <Text>Footer</Text>
+        <TabBottomMenu 
+        onPress={setSelectedTabName}
+        selectedTabName={selectedTabName}/>
       </View>
     </>
   );
